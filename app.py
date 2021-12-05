@@ -71,7 +71,7 @@ def email_to():
     #image = preprocess_input(image)
     #yhat = model.predict(image)
     prediction = 0.80
-    output = str(yhat*100)
+    output = str(0.80*100)
     if (prediction>0.50):
         result = 'positive'
     else:
