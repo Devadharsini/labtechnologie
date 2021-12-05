@@ -24,7 +24,7 @@ from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 
 from tensorflow import keras
-model = keras.models.load_model('./model/chest_xray_model2.h5')
+#model = keras.models.load_model('./model/chest_xray_model2.h5')
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -69,8 +69,8 @@ def email_to():
     image = img_to_array(image)/255
     image = image.reshape(-1,300,300,3)
     #image = preprocess_input(image)
-    yhat = model.predict(image)
-    prediction = yhat
+    #yhat = model.predict(image)
+    prediction = 0.80
     output = str(yhat*100)
     if (prediction>0.50):
         result = 'positive'
