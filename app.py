@@ -22,9 +22,12 @@ from werkzeug.wrappers import Request, Response
 from werkzeug.utils import secure_filename
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
+from keras.preprocessing import image
+import cv2
+from matplotlib import pyplot as plt
 
 from tensorflow import keras
-#model = keras.models.load_model('./model/chest_xray_model2.h5')
+model = keras.models.load_model('./model/pneumonia_cnn.h5')
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -65,17 +68,28 @@ def email_to():
     image_path = "./images/" + file.filename
     file.save(image_path)
     
-    image = load_img(image_path, target_size=(300, 300))
-    image = img_to_array(image)/255
-    image = image.reshape(-1,300,300,3)
+    IMG_SIZE = 200
+    image = cv2.imread(image_path)
+		# Resize image to 200x200 px
+    image = cv2.resize(image, dsize=(200,200))
+		# Convert to grayscale
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+     # resize image to match model's expected sizing
+    image = image.reshape(1,200,200,1)
+#plt.imshow(image)
+#img = np.expand_dims(img, axis=0)
+    result = model.predict(image)
+    final = result[0]
+    result = str( np.argmax(final))
+    
     #image = preprocess_input(image)
-    #yhat = model.predict(image)
-    prediction = 0.80
-    output = str(0.80*100)
-    if (prediction>0.50):
-        result = 'positive'
-    else:
-        result = 'negative'
+    yhat = model.predict(image)
+    prediction = yhat
+    output = str(yhat*100)
+    #if (prediction>0.50):
+    #    result = 'positive'
+    #else:
+    #    result = 'negative'
 
     #return render_template('index.html')
         
