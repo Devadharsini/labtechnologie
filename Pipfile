@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 numpy = "~=1.19.5"
+opencv-python = "*"
 tensorflow-cpu = "~=2.5.0"
 h5py = "~=3.1.0"
 gcsfs = "~=2021.7.0"
