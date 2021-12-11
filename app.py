@@ -71,6 +71,7 @@ def email_to():
     IMG_SIZE = 200
     image = cv2.imread(image_path)
 		# Resize image to 200x200 px
+    
     image = cv2.resize(image, dsize=(200,200))
 		# Convert to grayscale
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -78,6 +79,9 @@ def email_to():
     image = image.reshape(1,200,200,1)
 #plt.imshow(image)
 #img = np.expand_dims(img, axis=0)
+    #image = load_img(image_path, target_size=(200, 200))
+    #image = img_to_array(image)/255
+    #image = image.reshape(1,200,200,1)
     result = model.predict(image)
     final = result[0]
     result = str( np.argmax(final))
