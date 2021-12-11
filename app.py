@@ -85,7 +85,12 @@ def email_to():
     result = model.predict(image)
     final = result[0]
     result = str( np.argmax(final))
-    
+    if '1' in result:
+        result = ' Normal'
+    elif '2' in result:
+        result = ' Viral Pneumonia'
+    else:
+        result = 'Bacterial Pneumonia'
     #image = preprocess_input(image)
     yhat = model.predict(image)
     prediction = yhat
