@@ -471,21 +471,21 @@ def appointment():
     
     # open the file to be sent 
     filename = "report.pdf"
-    attachment = open("report.pdf", "rb")
+    #attachment = open("report.pdf", "rb")
     
     # instance of MIMEBase and named as p
-    p = MIMEBase('application', 'octet-stream')
+    #p = MIMEBase('application', 'octet-stream')
     
     # To change the payload into encoded form
-    p.set_payload((attachment).read())
+    #p.set_payload((attachment).read())
     
     # encode into base64
-    encoders.encode_base64(p)
+    #encoders.encode_base64(p)
     
-    p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+    #p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
     
     # attach the instance 'p' to instance 'msg'
-    msg.attach(p)
+    #msg.attach(p)
     
     # creates SMTP session
     s = smtplib.SMTP('smtp.gmail.com', 587)
